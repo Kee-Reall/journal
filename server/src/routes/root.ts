@@ -5,6 +5,7 @@ const router = express.Router({
     caseSensitive: false
 })
 
-router.get('/',handler)
+router.get('/',handler.get)
+router.post('/',handler.post)
 
 export default router

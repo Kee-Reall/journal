@@ -8,5 +8,6 @@ var root_1 = __importDefault(require("../controllers/root"));
 var router = express_1.default.Router({
     caseSensitive: false
 });
-router.get('/', root_1.default);
+router.get('/', root_1.default.get);
+router.post('/', root_1.default.post);
 exports.default = router;

@@ -6,7 +6,7 @@ export const connector = async (
     client: MongoClient,
     collectionName: string,
     callback: Function,
-    prop: string
+    prop?: string | undefined
 ): Promise<FixMe> => {
     try {
         await client.connect()

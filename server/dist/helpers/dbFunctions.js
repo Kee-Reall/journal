@@ -36,7 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllUserPosts = void 0;
+exports.findAllUserPosts = exports.findAllPosts = void 0;
+var findAllPosts = function (collection, __) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, collection.find().toArray()];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.findAllPosts = findAllPosts;
 var findAllUserPosts = function (collection, user) { return __awaiter(void 0, void 0, void 0, function () {
     var objFinder;
     return __generator(this, function (_a) {

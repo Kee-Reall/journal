@@ -40,25 +40,43 @@ var connectToDB_1 = require("../helpers/connectToDB");
 var mongodb_1 = require("mongodb");
 var config_1 = require("../helpers/config");
 var dbFunctions_1 = require("../helpers/dbFunctions");
-function default_1(req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var result, e_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, (0, connectToDB_1.connector)(new mongodb_1.MongoClient(config_1.dbURI), 'posts', dbFunctions_1.findAllUserPosts, 'admin')];
-                case 1:
-                    result = _a.sent();
-                    res.json(result);
-                    return [3 /*break*/, 3];
-                case 2:
-                    e_1 = _a.sent();
-                    res.render('unknown');
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
-            }
+var mongoClient = new mongodb_1.MongoClient(config_1.dbURI);
+var handler = {
+    get: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, searcher, result, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        user = req.query.user;
+                        console.log(user);
+                        searcher = dbFunctions_1.findAllPosts;
+                        if (req.query.user)
+                            searcher = dbFunctions_1.findAllUserPosts;
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, 'posts', searcher, user)];
+                    case 2:
+                        result = _a.sent();
+                        res.json(result);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _a.sent();
+                        res.json({ error: true });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
         });
-    });
-}
-exports.default = default_1;
+    },
+    post: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                console.log('tree');
+                return [2 /*return*/];
+            });
+        });
+    }
+};
+exports.default = handler;

@@ -2,17 +2,26 @@ import { Response, Request } from "express";
 import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
-import { findAllUserPosts } from "../helpers/dbFunctions";
+import { findAllUserPosts, findAllPosts } from "../helpers/dbFunctions";
 
+const mongoClient = new MongoClient(dbURI)
 
-export default async function (req: Request, res: Response): Promise<void> {
-    try {
-        const result = await connector(new MongoClient(dbURI), 'posts',
-            findAllUserPosts,'admin'
-        )
-        res.json( result )
-    } catch (e) {
-        res.render('unknown')
+const handler = {
+    get: async function (req: Request, res: Response): Promise<void> {
+        const user: any = req.query.user
+        console.log(user)
+        let searcher = findAllPosts
+        if(req.query.user) searcher = findAllUserPosts
+        try {
+            const result = await connector(mongoClient, 'posts', searcher, user)
+            res.json(result)
+        } catch (e) {
+            res.json({error: true})
+        }
+    },
+    post: async function (req: Request, res: Response): Promise<void> {
+        console.log('tree')
     }
-
 }
+
+export default handler
