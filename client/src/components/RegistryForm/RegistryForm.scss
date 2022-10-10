@@ -1,0 +1,58 @@
+form {
+  background-color: #282c34;
+  width: 30rem;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  input{
+    padding: .5rem;
+    margin: .25rem auto .25rem auto;
+    width: 28rem;
+  }
+}
+
+.red {
+ background-color: rgba(220, 20, 60, 0.53);
+}
+
+.button-div {
+  span {
+    padding-right: 3rem;
+    color: whitesmoke;
+  }
+  display: flex;
+  flex-direction: row-reverse;
+  button {
+    transition: .2s;
+    border-radius: 4px;
+    width: 5rem;
+    height: 2rem;
+    margin: .25rem 3rem .25rem .25rem;
+    border: none ;
+    &:hover{
+      color: whitesmoke;
+      background-color: black;
+    }
+    &:active{
+      color:black;
+      background: linear-gradient(to left,white,black);
+  }
+  }
+}
+
+.invitation{
+  text-align: center;
+  color: aliceblue;
+  font-size:2rem;
+  padding: .5rem;
+}
+
+.action-text {
+  font-size: 2rem;
+  transition: .2s;
+  &:hover{
+    font-size:3rem;
+  }
+
+}
