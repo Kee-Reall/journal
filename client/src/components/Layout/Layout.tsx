@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, NavLink, Outlet} from "react-router-dom";
 import "./Layout.scss"
 
 const Layout = () => {
@@ -9,13 +9,13 @@ const Layout = () => {
                 <div className="navigation">
                     <nav>
                         <ul>
-                            <li><Link to="/"><span>Home</span></Link></li>
-                            <li><Link to={"/profile"}><span>Profile</span></Link></li>
+                            <li><NavLink to={"/profile"}><span>Profile</span></NavLink></li>
+                            <li><NavLink to={"/poststore"}><span>Posts</span></NavLink></li>
                         </ul>
                     </nav>
                 </div>
                 <div className="decoration">
-                    <h1>Chatty</h1>
+                    <NavLink to={"/"}><h1>Chatty</h1></NavLink>
                 </div>
             </header>
             <main>
