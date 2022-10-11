@@ -9,11 +9,12 @@ var auth_1 = __importDefault(require("./routes/auth"));
 var root_1 = __importDefault(require("./routes/root"));
 var unknown_1 = __importDefault(require("./routes/unknown"));
 var getIP_1 = __importDefault(require("./midleware/getIP"));
-//import bodyParser from "body-parser";
+var body_parser_1 = __importDefault(require("body-parser"));
 var app = (0, express_1.default)();
 //app.set( "view engine", "ejs" );
 app.use((0, cors_1.default)());
-//app.use(bodyParser.json())
+app.use(body_parser_1.default.json());
+app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(getIP_1.default);
 app.use(root_1.default);
 app.use(auth_1.default);

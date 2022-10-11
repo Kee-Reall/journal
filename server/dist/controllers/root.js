@@ -42,6 +42,7 @@ var config_1 = require("../helpers/config");
 var dbFunctions_1 = require("../helpers/dbFunctions");
 //import bodyParser from "body-parser";
 var mongoClient = new mongodb_1.MongoClient(config_1.dbURI);
+var collectionName = 'posts';
 var handler = {
     get: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
@@ -57,7 +58,7 @@ var handler = {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, 'posts', searcher, user)];
+                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, collectionName, searcher, user)];
                     case 2:
                         result = _a.sent();
                         res.json(result);
@@ -73,10 +74,28 @@ var handler = {
     },
     post: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log(req.body);
-                res.json({ 'tittle': 'we got it' });
-                return [2 /*return*/];
+            var _a, author, header, content, curentDate, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        console.log(req.body);
+                        _a = req.body, author = _a.author, header = _a.header, content = _a.content;
+                        curentDate = new Date(Date.now());
+                        _b.label = 1;
+                    case 1:
+                        _b.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, 'posts', function () { return ; })];
+                    case 2:
+                        _b.sent();
+                        res.json({ 'tittle': 'we got it' });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _b.sent();
+                        console.log(error_1);
+                        res.json({ 'ERROR': true });
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
             });
         });
     }

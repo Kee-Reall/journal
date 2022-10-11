@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllUserPosts = exports.findAllPosts = void 0;
+exports.putNewPost = exports.findAllUserPosts = exports.findAllPosts = void 0;
 var findAllPosts = function (collection, __) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -60,3 +60,10 @@ var findAllUserPosts = function (collection, user) { return __awaiter(void 0, vo
     });
 }); };
 exports.findAllUserPosts = findAllUserPosts;
+var putNewPost = function (collection, PropsObject) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        collection.insertOne();
+        return [2 /*return*/];
+    });
+}); };
+exports.putNewPost = putNewPost;
