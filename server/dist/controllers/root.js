@@ -74,23 +74,21 @@ var handler = {
     },
     post: function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, author, header, content, curentDate, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         console.log(req.body);
-                        _a = req.body, author = _a.author, header = _a.header, content = _a.content;
-                        curentDate = new Date(Date.now());
-                        _b.label = 1;
+                        _a.label = 1;
                     case 1:
-                        _b.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, 'posts', function () { return ; })];
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, collectionName, dbFunctions_1.putNewPost, req.body)];
                     case 2:
-                        _b.sent();
+                        _a.sent();
                         res.json({ 'tittle': 'we got it' });
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _b.sent();
+                        error_1 = _a.sent();
                         console.log(error_1);
                         res.json({ 'ERROR': true });
                         return [3 /*break*/, 4];

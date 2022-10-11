@@ -61,9 +61,23 @@ var findAllUserPosts = function (collection, user) { return __awaiter(void 0, vo
 }); };
 exports.findAllUserPosts = findAllUserPosts;
 var putNewPost = function (collection, PropsObject) { return __awaiter(void 0, void 0, void 0, function () {
+    var author, header, content, curentDate;
     return __generator(this, function (_a) {
-        collection.insertOne();
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                author = PropsObject.author, header = PropsObject.header, content = PropsObject.content;
+                curentDate = new Date(Date.now());
+                return [4 /*yield*/, collection.insertOne({
+                        author: author,
+                        header: header,
+                        content: content,
+                        date: curentDate,
+                        update: curentDate,
+                    })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
     });
 }); };
 exports.putNewPost = putNewPost;

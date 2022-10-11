@@ -13,7 +13,15 @@ export const findAllUserPosts = async (collection: Collection<any>, user: string
 }
 
 export const putNewPost = async (collection: Collection<any>, PropsObject:POSTbodyPost) => {
-    collection.insertOne<>()
+    const{author,header,content} = PropsObject
+    const curentDate = new Date(Date.now())
+    await collection.insertOne({
+        author: author,
+        header: header,
+        content: content,
+        date: curentDate,
+        update: curentDate,
+    })
 }
 
 

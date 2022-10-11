@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
-import { findAllUserPosts, findAllPosts } from "../helpers/dbFunctions";
+import {findAllUserPosts, findAllPosts, putNewPost} from "../helpers/dbFunctions";
 //import bodyParser from "body-parser";
 
 const mongoClient = new MongoClient(dbURI)
@@ -23,10 +23,8 @@ const handler = {
     },
     post: async function (req: Request, res: Response): Promise<void> {
         console.log(req.body)
-        const {author, header, content} = req.body
-        const curentDate = new Date(Date.now())
         try {
-            await connector(mongoClient,'posts',() =>)
+            await connector(mongoClient,collectionName,putNewPost, req.body)
             res.json({'tittle': 'we got it'})
         } catch (error){
             console.log(error)
