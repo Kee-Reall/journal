@@ -1,5 +1,6 @@
 import React from "react";
 import { IPostUnitProps } from "../../interfaces/PostInterface";
+import './PostUnit.scss'
 
 
 const PostUnit = (props: IPostUnitProps) => {
@@ -13,17 +14,19 @@ const PostUnit = (props: IPostUnitProps) => {
 
     return(
         <div className={'postUnit'}>
-            <h2>{header}</h2>
             <div>
-                <p>{`${upDate.getDate()} ${upDate.getMonth()} ${upDate.getFullYear()}`}</p>
-                <p>{ author }</p>
-            </div>
-            <pre>
+                <h2>{header}</h2>
+                <div>
+                    <p>{`${upDate.getDate()} ${upDate.getMonth()} ${upDate.getFullYear()}`}</p>
+                    <p>{ author }</p>
+                </div>
+                <pre>
                 {
                     content
                 }
             </pre>
-            <p>{`original post was created ${createDate.toDateString()}`}</p>
+                <p>{`original post was created ${createDate.toDateString()}`}</p>
+            </div>
         </div>
     )
 }

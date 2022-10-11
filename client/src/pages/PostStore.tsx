@@ -22,6 +22,8 @@ const PostStore = () => {
     },[])
     return(
         <>
+            <h1>Create Form</h1>
+
             <h1>post store</h1>
             {
                 post.length > 0 ?(
