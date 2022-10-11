@@ -3,6 +3,7 @@ import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
 import { findAllUserPosts, findAllPosts } from "../helpers/dbFunctions";
+//import bodyParser from "body-parser";
 
 const mongoClient = new MongoClient(dbURI)
 
@@ -20,7 +21,8 @@ const handler = {
         }
     },
     post: async function (req: Request, res: Response): Promise<void> {
-        console.log('tree')
+        console.log(req.body)
+        res.json({'tittle': 'we got it'})
     }
 }
 

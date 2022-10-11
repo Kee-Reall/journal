@@ -1,5 +1,6 @@
 import express from "express";
 import handler from '../controllers/root'
+import bodyParser from "body-parser";
 
 const router = express.Router({
     caseSensitive: false
