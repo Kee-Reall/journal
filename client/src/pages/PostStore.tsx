@@ -2,6 +2,8 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import PostUnit from "../components/PostUnit/PostUnit";
 import { IPostUnitProps } from "../interfaces/PostInterface";
+import PostCreator from "../components/PostCreator/PostCreator";
+import {serverURI} from "../Helpers/Variables";
 
 const PostStore = () => {
 
@@ -13,7 +15,7 @@ const PostStore = () => {
 
     useEffect(() =>{
         axios
-            .get('http://localhost:8000/',axiosConfig)
+            .get(serverURI,axiosConfig)
             .then(response => setPost(response.data))
             .catch( e => {
                 console.log(e)
@@ -23,7 +25,7 @@ const PostStore = () => {
     return(
         <>
             <h1>Create Form</h1>
-
+            <PostCreator/>
             <h1>post store</h1>
             {
                 post.length > 0 ?(

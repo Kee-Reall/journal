@@ -17,8 +17,8 @@ const PostUnit = (props: IPostUnitProps) => {
             <div>
                 <h2>{header}</h2>
                 <div>
-                    <p>{`${upDate.getDate()} ${upDate.getMonth()} ${upDate.getFullYear()}`}</p>
-                    <p>{ author }</p>
+                    <p>{` last update ${upDate.getDate()} ${upDate.getMonth()} ${upDate.getFullYear()} ${upDate.getHours()}:${upDate.getMinutes()}`}</p>
+                    <p>{`author is ${author}`}</p>
                 </div>
                 <pre>
                 {
@@ -26,6 +26,14 @@ const PostUnit = (props: IPostUnitProps) => {
                 }
             </pre>
                 <p>{`original post was created ${createDate.toDateString()}`}</p>
+            </div>
+            <div className={'btn-block'}>
+                <div>
+                    <button>Edit</button>
+                </div>
+                <div>
+                    <button>Delete</button>
+                </div>
             </div>
         </div>
     )

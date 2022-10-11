@@ -40,7 +40,7 @@ exports.putNewPost = exports.findAllUserPosts = exports.findAllPosts = void 0;
 var findAllPosts = function (collection, __) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, collection.find().toArray()];
+            case 0: return [4 /*yield*/, collection.find().sort({ date: -1 }).toArray()];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
@@ -54,7 +54,7 @@ var findAllUserPosts = function (collection, user) { return __awaiter(void 0, vo
                 objFinder = {
                     author: user
                 };
-                return [4 /*yield*/, collection.find(objFinder).toArray()];
+                return [4 /*yield*/, collection.find(objFinder).sort({ date: -1 }).toArray()];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
