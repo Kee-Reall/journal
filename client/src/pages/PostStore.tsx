@@ -8,6 +8,7 @@ import {serverURI} from "../Helpers/Variables";
 const PostStore = () => {
 
     const [post,setPost] = useState([])
+    const [indicator, setIndicator] = useState<boolean>(false)
 
     const axiosConfig: any = {
         "Content-Type" : "application/json"
@@ -21,12 +22,13 @@ const PostStore = () => {
                 console.log(e)
                 setPost([])
             })
-    },[])
+    },[indicator])
     return(
         <>
             <h1>Create Form</h1>
-            <PostCreator/>
+            <PostCreator indicator={setIndicator}/>
             <h1>post store</h1>
+            <p>{indicator ? ' ':'  '}</p>
             {
                 post.length > 0 ?(
                     post.map( (el:IPostUnitProps) => {

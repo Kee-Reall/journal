@@ -2,8 +2,15 @@ import React, {FormEvent, useState} from "react";
 import axios from "axios";
 import {serverURI} from "../../Helpers/Variables";
 import { IPut } from "../../interfaces/PutInterface";
+import {PostCreatorInterface} from "../../interfaces/PostCreatorInterface";
 
-const PostCreator = () => {
+const PostCreator = ({indicator}:PostCreatorInterface) => {
+
+    const initial:string = ''
+
+    const [author,setAuthor] = useState<string>(initial)
+    const [header,setHeader] = useState<string>(initial)
+    const [content,setContent] = useState<string>(initial)
 
     const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -17,13 +24,13 @@ const PostCreator = () => {
             .post(serverURI, putObject)
             .then(res => console.log(res))
             .catch(error => console.error(error))
+            .finally(() => {
+                indicator((prev: boolean)=> !prev)
+                setAuthor(()=>initial)
+                setHeader(()=>initial)
+                setContent(()=>initial)
+            })
     }
-
-    const [author,setAuthor] = useState<string>('')
-    const [header,setHeader] = useState<string>('')
-    const [content,setContent] = useState<string>('')
-
-    console.log(content)
 
     return(
         <form onSubmit={ submitHandler }>

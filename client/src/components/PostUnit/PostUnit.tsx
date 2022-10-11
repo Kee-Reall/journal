@@ -11,7 +11,6 @@ const PostUnit = (props: IPostUnitProps) => {
     console.log(update)
     console.log(new Date(update))
 
-
     return(
         <div className={'postUnit'}>
             <div>
