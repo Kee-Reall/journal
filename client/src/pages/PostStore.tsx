@@ -9,25 +9,26 @@ const PostStore = () => {
 
     const initial:string = ''
 
-    const [postState,setPost] = useState<Array<IPostUnitProps>>([])
+    const [post,setPost] = useState<Array<IPostUnitProps>>([])
     const [author,setAuthor] = useState<string>(initial)
     const [header,setHeader] = useState<string>(initial)
     const [content,setContent] = useState<string>(initial)
+    const [changeIndicator,setChangeIndicator] = useState<boolean>(false)
 
-    const axiosConfig: any = {
+
+    const axiosGetConfig: any = {
         "Content-Type" : "application/json"
     }
 
     useEffect(() => {
-        axios.get(serverURI,axiosConfig)
+        axios.get(serverURI,axiosGetConfig)
             .then( response => setPost(response.data))
             .catch( e => {
                 console.log(e)
                 setPost([])
             })
-    })
+    },[changeIndicator])
 
-    const post: any = postState.map( el => el )
 
     const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -42,17 +43,11 @@ const PostStore = () => {
                 const { status } = res
                 console.log(res)
                 if (status === 200) {
-                    const PostToAdd: IPostUnitProps = {
-                        ...putObject,
-                        date : new Date(Date.now()),
-                        update : new Date(Date.now())
-                    }
-                    post.unshift(putObject)
+                    setChangeIndicator((prev) => !prev)
                 }
             })
             .catch(error => console.error(error))
             .finally(() => {
-                //setIndicator((prev: boolean)=> !prev)
                 setAuthor(()=>initial)
                 setHeader(()=>initial)
                 setContent(()=>initial)
