@@ -60,3 +60,5 @@ const PostCreator = ({indicator}:PostCreatorInterface) => {
 }
 
 export default PostCreator
+
+// this component is useless now

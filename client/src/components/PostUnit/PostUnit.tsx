@@ -8,8 +8,10 @@ const PostUnit = (props: IPostUnitProps) => {
     const {author, date ,update, content, header} = props
 
     const [upDate, createDate] = [new Date(update), new Date(date)]
-    console.log(update)
-    console.log(new Date(update))
+
+    const  EditHandler = (): void => {
+
+    }
 
     return(
         <div className={'postUnit'}>
