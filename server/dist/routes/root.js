@@ -10,4 +10,5 @@ var router = express_1.default.Router({
 });
 router.get('/', root_1.default.get);
 router.post('/', root_1.default.post);
+router.delete('/', root_1.default.delete);
 exports.default = router;

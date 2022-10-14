@@ -13,15 +13,16 @@ export const findAllUserPosts = async (collection: Collection<any>, user: string
 }
 
 export const putNewPost = async (collection: Collection<any>, PropsObject:POSTbodyPost) => {
-    const{author,header,content} = PropsObject
-    const curentDate = new Date(Date.now())
+    const currentDate = new Date(Date.now())
     await collection.insertOne({
-        author: author,
-        header: header,
-        content: content,
-        date: curentDate,
-        update: curentDate,
+        ...PropsObject,
+        date: currentDate,
+        update: currentDate,
     })
+}
+
+export const deletePost = async (collection: Collection<any>, PropsObject:POSTbodyPost) => {
+    await collection.findOneAndDelete(PropsObject)
 }
 
 

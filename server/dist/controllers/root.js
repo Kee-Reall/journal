@@ -96,6 +96,40 @@ var handler = {
                 }
             });
         });
+    },
+    delete: function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var authorCheck, headerCheck, contentCheck, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('delete request');
+                        console.log(req.body);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        authorCheck = req.body.hasOwnProperty('author');
+                        headerCheck = req.body.hasOwnProperty('header');
+                        contentCheck = req.body.hasOwnProperty('content');
+                        if (!(authorCheck && headerCheck && contentCheck)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, (0, connectToDB_1.connector)(mongoClient, collectionName, dbFunctions_1.deletePost, req.body)];
+                    case 2:
+                        _a.sent();
+                        res.json({ Delete: "OK" });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        res.json({ Delete: "Incorrect" });
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        error_2 = _a.sent();
+                        console.log(error_2);
+                        res.json({ 'ERROR': true, 'Type': 'Delete Error' });
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
     }
 };
 exports.default = handler;

@@ -2,7 +2,7 @@ import { Response, Request } from "express";
 import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
-import {findAllUserPosts, findAllPosts, putNewPost} from "../helpers/dbFunctions";
+import {findAllUserPosts, findAllPosts, putNewPost, deletePost} from "../helpers/dbFunctions";
 //import bodyParser from "body-parser";
 
 const mongoClient = new MongoClient(dbURI)
@@ -21,6 +21,7 @@ const handler = {
             res.json({error: true})
         }
     },
+
     post: async function (req: Request, res: Response): Promise<void> {
         console.log(req.body)
         try {
@@ -30,7 +31,28 @@ const handler = {
             console.log(error)
             res.json({'ERROR':true})
         }
+    },
+
+    delete: async function (req: Request, res: Response): Promise<void>{
+        console.log('delete request')
+        console.log(req.body)
+        try {
+            const authorCheck: boolean = req.body.hasOwnProperty('author')
+            const headerCheck: boolean = req.body.hasOwnProperty('header')
+            const contentCheck: boolean = req.body.hasOwnProperty('content')
+            if ( authorCheck && headerCheck && contentCheck) {
+                await connector(mongoClient,collectionName,deletePost, req.body)
+                res.json({Delete: "OK"})
+            } else {
+                res.json({Delete: "Incorrect"})
+            }
+        } catch (error){
+           console.log(error)
+           res.json({'ERROR':true, 'Type':'Delete Error'})
+        }
     }
+
+
 }
 
 export default handler

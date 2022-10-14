@@ -1,6 +1,5 @@
 import express from "express";
 import handler from '../controllers/root'
-import bodyParser from "body-parser";
 
 const router = express.Router({
     caseSensitive: false
@@ -8,5 +7,6 @@ const router = express.Router({
 
 router.get('/',handler.get)
 router.post('/',handler.post)
+router.delete('/', handler.delete)
 
 export default router

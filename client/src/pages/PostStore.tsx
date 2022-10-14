@@ -1,7 +1,7 @@
 import React, {useState, useEffect, Fragment, FormEvent} from "react";
 import axios from "axios";
 import PostUnit from "../components/PostUnit/PostUnit";
-import { IPostUnitProps } from "../interfaces/PostInterface";
+import  { IPostUnitProps } from "../interfaces/PostInterface";
 import {serverURI} from "../Helpers/Variables";
 import {IPut} from "../interfaces/PutInterface";
 
@@ -53,8 +53,6 @@ const PostStore = () => {
                 setContent(()=>initial)
             })
     }
-
-
 
     return(
         <Fragment>
