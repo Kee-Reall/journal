@@ -50,8 +50,6 @@ const handler = {
            res.json({'ERROR':true, 'Type':'Delete Error'})
         }
     }
-
-
 }
 
 export default handler

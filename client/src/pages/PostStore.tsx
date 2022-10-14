@@ -86,7 +86,7 @@ const PostStore = () => {
                     post.map( (el:IPostUnitProps) => {
                         const {author, date, update, content, header} = el
                         return(
-                            <PostUnit author={author} date={date} update={update} content={content} header={header}/>
+                            <PostUnit key={author + date.toString()} author={author} date={date} update={update} content={content} header={header}/>
                         )
                     })
                 ) : <h1>No posts</h1>
