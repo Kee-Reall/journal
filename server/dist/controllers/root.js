@@ -40,7 +40,6 @@ var connectToDB_1 = require("../helpers/connectToDB");
 var mongodb_1 = require("mongodb");
 var config_1 = require("../helpers/config");
 var dbFunctions_1 = require("../helpers/dbFunctions");
-//import bodyParser from "body-parser";
 var mongoClient = new mongodb_1.MongoClient(config_1.dbURI);
 var collectionName = 'posts';
 var handler = {

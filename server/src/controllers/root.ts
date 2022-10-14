@@ -3,7 +3,6 @@ import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
 import {findAllUserPosts, findAllPosts, putNewPost, deletePost} from "../helpers/dbFunctions";
-//import bodyParser from "body-parser";
 
 const mongoClient = new MongoClient(dbURI)
 const collectionName: string = 'posts'
