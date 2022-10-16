@@ -8,5 +8,6 @@ const router = express.Router({
 router.get('/',handler.get)
 router.post('/',handler.post)
 router.delete('/', handler.delete)
+router.put('/',handler.put)
 
 export default router

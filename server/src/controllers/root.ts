@@ -2,7 +2,8 @@ import { Response, Request } from "express";
 import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
-import {findAllUserPosts, findAllPosts, putNewPost, deletePost} from "../helpers/dbFunctions";
+import {findAllUserPosts, findAllPosts, putNewPost, deletePost, updatePost} from "../helpers/dbFunctions";
+import { UpdatePostInterface } from "../Interfaces/PostInterface";
 
 const mongoClient = new MongoClient(dbURI)
 const collectionName: string = 'posts'
@@ -49,6 +50,17 @@ const handler = {
            console.log(error)
            res.json({'ERROR':true, 'Type':'Delete Error'})
         }
+    },
+
+    put: async function({body, ...req}: Request, res: Response): Promise<void> {
+        console.log('put request')
+        console.log(body)
+        try {
+            await connector(mongoClient,collectionName,updatePost,body)
+        } catch (error) {
+
+        }
+        res.json({ok:true})
     }
 }
 

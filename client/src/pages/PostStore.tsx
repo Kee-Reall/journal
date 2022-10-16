@@ -40,11 +40,11 @@ const PostStore = () => {
     const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setInputsDisable(()=> true)
-        const putObject: IPut = {
-            author,
-            header,
-            content
+        if(author.trim() === initial || header.trim() === initial || content.trim() === initial) {
+            setTimeout(()=>setInputDefaults(),2000)
+            return
         }
+        const putObject: IPut = { author, header, content }
         axios
             .post(serverURI, putObject)
             .then( res => {
@@ -86,7 +86,8 @@ const PostStore = () => {
                         }}
                     />
                 </div>
-                <button>create</button>
+                <button disabled={isInputsDisable}>create</button>
+                <p>{isInputsDisable && <span style={{color:"white"}}>form is disabled</span>}</p>
             </form>
             <h1>post store</h1>
             {
@@ -94,7 +95,7 @@ const PostStore = () => {
                     post.map( (el:IPostUnitProps) => {
                         const {author, date, update, content, header} = el
                         return(
-                            <PostUnit key={author + date.toString()} author={author} date={date} update={update} content={content} header={header}/>
+                            <PostUnit key={author + date.toString()} author={author} date={date} update={update} setChanger={setChangeIndicator} content={content} header={header}/>
                         )
                     })
                 ) : <h1>No posts</h1>

@@ -4,4 +4,5 @@ export interface IPostUnitProps{
     update: Date
     content: string
     header: string
+    setChanger: Function
 }
