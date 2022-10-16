@@ -1,14 +1,18 @@
 import React from "react";
 import RegistryForm from "../components/RegistryForm/RegistryForm";
+import './Home.scss'
 
 const Home = () => {
 
-    const isLoggin: boolean = false
+    const isLogin: boolean = false
     return (
         <>
-            {
-                !isLoggin && <RegistryForm/>
-            }
+            <div>
+            { !isLogin && <RegistryForm/> }
+            </div>
+            <div>
+
+            </div>
         </>
     )
 }
