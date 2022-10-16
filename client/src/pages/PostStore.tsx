@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment, FormEvent} from "react";
+import React, {useState, useEffect, FormEvent} from "react";
 import axios from "axios";
 import PostUnit from "../components/PostUnit/PostUnit";
 import  { IPostUnitProps } from "../interfaces/PostInterface";
@@ -14,6 +14,7 @@ const PostStore = () => {
     const [header,setHeader] = useState<string>(initial)
     const [content,setContent] = useState<string>(initial)
     const [changeIndicator,setChangeIndicator] = useState<boolean>(false)
+    const [isInputsDisable,setInputsDisable] = useState<boolean>(false)
 
 
     const axiosGetConfig: any = {
@@ -29,9 +30,16 @@ const PostStore = () => {
             })
     },[changeIndicator])
 
+    const setInputDefaults = ():void => {
+        setAuthor(()=>initial)
+        setHeader(()=>initial)
+        setContent(()=>initial)
+        setInputsDisable(()=>false)
+    }
 
     const submitHandler = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setInputsDisable(()=> true)
         const putObject: IPut = {
             author,
             header,
@@ -46,33 +54,33 @@ const PostStore = () => {
                     setChangeIndicator((prev) => !prev)
                 }
             })
-            .catch(error => console.error(error))
+            .catch(error =>  {
+                console.error(error)
+            })
             .finally(() => {
-                setAuthor(()=>initial)
-                setHeader(()=>initial)
-                setContent(()=>initial)
+                setInputDefaults()
             })
     }
 
     return(
-        <Fragment>
+        <>
             <h1>Create Form</h1>
             <form onSubmit={ submitHandler }>
                 <div className={'inputs'}>
                     <input
-                        type={'text'} placeholder={'author'} value={author}
+                        type={'text'} placeholder={'author'} disabled={isInputsDisable} value={author}
                         onChange={({ target: { value } })=> {
                             setAuthor(() => value )
                         }}
                     />
                     <input
-                        type={'text'} placeholder={'Header'} value={header}
+                        type={'text'} placeholder={'Header'} disabled={isInputsDisable} value={header}
                         onChange={({ target: { value } })=> {
                             setHeader(() => value )
                         }}
                     />
                     <textarea
-                        rows={4} placeholder={'content'} value={content}
+                        rows={4} placeholder={'content'} disabled={isInputsDisable} value={content}
                         onChange={({ target: { value } }) => {
                             setContent(() => value)
                         }}
@@ -82,7 +90,7 @@ const PostStore = () => {
             </form>
             <h1>post store</h1>
             {
-                post.length > 0 ?(
+                post.length > 0 ? (
                     post.map( (el:IPostUnitProps) => {
                         const {author, date, update, content, header} = el
                         return(
@@ -91,7 +99,7 @@ const PostStore = () => {
                     })
                 ) : <h1>No posts</h1>
             }
-        </Fragment>
+        </>
     )
 }
 
