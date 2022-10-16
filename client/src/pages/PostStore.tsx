@@ -58,7 +58,7 @@ const PostStore = () => {
                 console.error(error)
             })
             .finally(() => {
-                setInputDefaults()
+                setTimeout(()=>setInputDefaults(),400)
             })
     }
 
