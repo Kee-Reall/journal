@@ -3,13 +3,13 @@ import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
 import {findAllUserPosts, findAllPosts, putNewPost, deletePost, updatePost} from "../helpers/dbFunctions";
-import { UpdatePostInterface } from "../Interfaces/PostInterface";
 
 const mongoClient = new MongoClient(dbURI)
 const collectionName: string = 'posts'
 
-const handler = {
-    get: async function (req: Request, res: Response): Promise<void> {
+class RootEndpoint {
+    constructor(public mongoClient: MongoClient,public collectionName: string) {}
+    async get (req: Request, res: Response): Promise<void> {
         const user: any = req.query.user
         console.log(user)
         let searcher = findAllPosts
@@ -20,9 +20,9 @@ const handler = {
         } catch (e) {
             res.json({error: true})
         }
-    },
+    }
 
-    post: async function (req: Request, res: Response): Promise<void> {
+    async post (req: Request, res: Response): Promise<void> {
         console.log(req.body)
         try {
             await connector(mongoClient,collectionName,putNewPost, req.body)
@@ -31,9 +31,9 @@ const handler = {
             console.log(error)
             res.json({'ERROR':true})
         }
-    },
+    }
 
-    delete: async function (req: Request, res: Response): Promise<void>{
+    async delete (req: Request, res: Response): Promise<void>{
         console.log('delete request')
         console.log(req.body)
         try {
@@ -50,9 +50,9 @@ const handler = {
            console.log(error)
            res.json({'ERROR':true, 'Type':'Delete Error'})
         }
-    },
+    }
 
-    put: async function({body, ...req}: Request, res: Response): Promise<void> {
+    async put({body, ...req}: Request, res: Response): Promise<void> {
         console.log('put request')
         console.log(body)
         try {
@@ -63,5 +63,5 @@ const handler = {
         res.json({ok:true})
     }
 }
-
+ const handler = new RootEndpoint(mongoClient,collectionName)
 export default handler

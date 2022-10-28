@@ -5,9 +5,11 @@ const router = express.Router({
     caseSensitive: false
 })
 
-router.get('/',handler.get)
-router.post('/',handler.post)
-router.delete('/', handler.delete)
-router.put('/',handler.put)
+const rootString: string = '/'
+
+router.get(rootString,handler.get)
+router.post(rootString,handler.post)
+router.delete(rootString, handler.delete)
+router.put(rootString,handler.put)
 
 export default router
