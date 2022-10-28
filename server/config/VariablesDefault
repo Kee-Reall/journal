@@ -1,1 +1,8 @@
-port=8000
+//in ./src/helpers/config.ts we get varuables from this file.all avaliable parameters are here
+
+//port=8000  //set API port
+//dbhost=localhost // set DBs remote host 
+//dbPort=27017 //which port should request
+//dbName=posts // DBs name
+
+//this parameters will be set by defalut

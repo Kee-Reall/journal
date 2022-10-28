@@ -1,4 +1,4 @@
-import { Response, Request } from "express";
+import e, { Response, Request } from "express";
 import { connector } from "../helpers/connectToDB";
 import { MongoClient } from "mongodb";
 import { dbURI } from "../helpers/config";
@@ -8,12 +8,10 @@ const mongoClient = new MongoClient(dbURI)
 const collectionName: string = 'posts'
 
 class RootEndpoint {
-    constructor(public mongoClient: MongoClient,public collectionName: string) {}
-    async get (req: Request, res: Response): Promise<void> {
-        const user: any = req.query.user
-        console.log(user)
-        let searcher = findAllPosts
-        if(req.query.user) searcher = findAllUserPosts
+    constructor(public mongoClient: MongoClient,public collectionName: string) {};
+    
+    async get ({query:{user}}: Request, res: Response): Promise<void> {
+        const searcher = user ? findAllUserPosts : findAllPosts
         try {
             const result = await connector(mongoClient, collectionName, searcher, user)
             res.json(result)
@@ -22,14 +20,13 @@ class RootEndpoint {
         }
     }
 
-    async post (req: Request, res: Response): Promise<void> {
-        console.log(req.body)
+    async post ({body}: Request, res: Response): Promise<void> {
         try {
-            await connector(mongoClient,collectionName,putNewPost, req.body)
+            await connector(mongoClient,collectionName,putNewPost, body)
             res.json({'tittle': 'we got it'})
         } catch (error){
             console.log(error)
-            res.json({'ERROR':true})
+            res.status(500).json({'ERROR':true})
         }
     }
 
@@ -57,11 +54,13 @@ class RootEndpoint {
         console.log(body)
         try {
             await connector(mongoClient,collectionName,updatePost,body)
-        } catch (error) {
-
+        } catch (error: unknown) {
+            throw error
+            console.log(error)
         }
         res.json({ok:true})
     }
 }
- const handler = new RootEndpoint(mongoClient,collectionName)
+
+const handler = new RootEndpoint(mongoClient,collectionName)
 export default handler
