@@ -15,7 +15,7 @@ const PostStore = () => {
     const [content,setContent] = useState<string>(initial)
     const [changeIndicator,setChangeIndicator] = useState<boolean>(false)
     const [isInputsDisable,setInputsDisable] = useState<boolean>(false)
-
+    const [authorFilter,setAuthorFilter] = useState<string>('')
 
     const axiosGetConfig: any = {
         "Content-Type" : "application/json"
@@ -37,7 +37,16 @@ const PostStore = () => {
         setInputsDisable(()=>false)
     }
 
-    const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    const searchButtonHandler = async ():Promise<void> => {
+        setInputsDisable(()=> true)
+        axios.get(`${serverURI}?user=${authorFilter}`,axiosGetConfig)
+        .then( response => setPost(response.data))
+        .catch( e => {
+            console.log(e)
+        }).finally(()=> setTimeout(() => setInputsDisable( ()=> false ),400))
+    }
+
+    const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setInputsDisable(()=> true)
         if(author.trim() === initial || header.trim() === initial || content.trim() === initial) {
@@ -89,6 +98,14 @@ const PostStore = () => {
                 <button disabled={isInputsDisable}>create</button>
                 <p>{isInputsDisable && <span style={{color:"white"}}>form is disabled</span>}</p>
             </form>
+            <h1>Author filter</h1>
+            <input
+                type='text' value={authorFilter} disabled={isInputsDisable}
+                onChange={({ target: { value } })=> {
+                    setAuthorFilter(() => value )
+                }}            
+            />
+            <button onClick={searchButtonHandler} disabled={isInputsDisable}>search</button>
             <h1>post store</h1>
             {
                 post.length > 0 ? (
