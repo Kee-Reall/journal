@@ -8,7 +8,10 @@ const mongoClient = new MongoClient(dbURI)
 const collectionName: string = 'posts'
 
 class RootEndpoint {
-    constructor(public mongoClient: MongoClient,public collectionName: string) {};
+    constructor (
+        public mongoClient: MongoClient,
+        public collectionName: string
+    ) {}
     
     async get ({query:{user}}: Request, res: Response): Promise<void> {
         const searcher = user ? findAllUserPosts : findAllPosts
