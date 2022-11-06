@@ -22,7 +22,7 @@ const PostStore = () => {
     }
 
     useEffect(() => {
-        axios.get(serverURI,axiosGetConfig)
+        axios.get(serverURI)
             .then( response => setPost(response.data))
             .catch( e => {
                 console.log(e)
@@ -123,7 +123,7 @@ const PostStore = () => {
                             />
                         )
                     })
-                ) : <h1>No posts</h1>
+                ) : <h1>No posts found</h1>
             }
         </>
     )
